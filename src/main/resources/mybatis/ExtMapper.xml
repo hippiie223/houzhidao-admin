@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hippie.houzhidaoadmin.mapper.ExtMapper">
+    <select id="getAllTopicList" resultType="com.hippie.houzhidaoadmin.domain.TopicDTO">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from topic
+  </select>
+    <select id="getTopTopicList" resultType="com.hippie.houzhidaoadmin.domain.TopicDTO">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from topic
+    order by hits desc limit 10
+  </select>
+    <select id="getTopicDetail" resultType="com.hippie.houzhidaoadmin.domain.TopicDTO" parameterType="java.lang.String">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from topic
+    where title=#{title} and author_name=#{authorName}
+  </select>
+    <update id="updatePostNum" parameterType="java.lang.Integer">
+    update topic
+    set post_num=post_num+1
+    where id=#{topicId}
+  </update>
+  <update id="updatePostReplyNum" parameterType="java.lang.Integer">
+    update topic_post
+    set reply_num=reply_num+1
+    where id=#{postId}
+  </update>
+  <select id="getQAAllList" resultType="com.hippie.houzhidaoadmin.domain.QADTO">
+     select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,answer_num as reviewNum,create_time as createTime,author_name as author
+    from qa_question
+  </select>
+  <select id="getTopQAList" resultType="com.hippie.houzhidaoadmin.domain.QADTO">
+     select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,answer_num as reviewNum,create_time as createTime,author_name as author
+    from qa_question
+    order by hits desc limit 10
+  </select>
+  <select id="getQADetail" resultType="com.hippie.houzhidaoadmin.domain.QADTO" parameterType="java.lang.String">
+     select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,answer_num as reviewNum,create_time as createTime,author_name as author
+    from qa_question
+    where title=#{title} and author_name=#{authorName}
+  </select>
+  <update id="updateQAAnswerNum" parameterType="java.lang.Integer">
+    update qa_question
+    set answer_num=answer_num+1
+    where id=#{qAId}
+  </update>
+  <update id="updateQAAnswerReplyNum" parameterType="java.lang.Integer">
+    update qa_answer
+    set reply_num=reply_num+1
+    where id=#{answerId}
+  </update>
+  <select id="getAllArticleList" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked
+    from article
+  </select>
+  <select id="getTopArticleList" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from article order by hits desc limit 10
+  </select>
+  <select id="searchArticle" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.String">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from article
+    where title like CONCAT('%',#{keyWord},'%')
+  </select>
+  <select id="getArticle" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.String">
+     select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from article
+    where title=#{title} and author_name=#{authorName}
+  </select>
+  <select id="getArticleByAuthor" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.String">
+     select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    from article
+    where author_name=#{authorName}
+  </select>
+  <update id="updateArticlePostNum" parameterType="java.lang.Integer">
+    update article
+    set post_num=post_num+1
+    where id=#{articleId}
+  </update>
+  <update id="updateArticleIsChecked" parameterType="java.lang.Integer">
+    update article
+    set is_checked = 1
+    where id=#{articleId}
+  </update>
+  <select id="getArticlePostList" parameterType="java.lang.Integer" resultType="com.hippie.houzhidaoadmin.domain.ArticlePostDTO">
+    select
+    id as id,user_name as userName,content as content,reply_num as replyNum,create_time as createTime
+    from article_post
+    where article_id=#{articleId}
+  </select>
+  <select id="getArticlePostReplyList" parameterType="java.lang.Integer" resultType="com.hippie.houzhidaoadmin.domain.ArticlePostReplyDTO">
+    select
+    id as id,user_name as userName,content as content, reply_to_user as replyTo,create_time as createTime
+    from article_post_reply
+    where post_id=#{postId}
+  </select>
+
+
+</mapper>
+
