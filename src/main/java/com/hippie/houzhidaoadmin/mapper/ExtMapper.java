@@ -40,4 +40,12 @@ public interface ExtMapper {
     List<ArticlePostDTO> getArticlePostList(@Param("articleId") Integer artcileId);
 
     List<ArticlePostReplyDTO> getArticlePostReplyList(@Param("postId") Integer postId);
+
+    List<TopicPostDTO> getTopicPostList(@Param("topicId") Integer topicId);
+
+    List<TopicPostReplyDTO> getTopicPostReplyList(@Param("postId") Integer postId);
+
+    List<String> getUserRoles(@Param("userName") String userName);
+
+    int updateUserSalt(@Param("userName") String userName);
 }

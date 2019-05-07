@@ -105,6 +105,30 @@
     from article_post_reply
     where post_id=#{postId}
   </select>
+  <select id="getTopicPostList" parameterType="java.lang.Integer" resultType="com.hippie.houzhidaoadmin.domain.TopicPostDTO">
+    select
+    id as id,user_name as userName,content as content,reply_num as replyNum,create_time as createTime
+    from topic_post
+    where topic_id=#{topicId}
+  </select>
+  <select id="getTopicPostReplyList" parameterType="java.lang.Integer" resultType="com.hippie.houzhidaoadmin.domain.TopicPostReplyDTO">
+    select
+    id as id,user_name as userName,content as content, reply_to_user as replyTo,create_time as createTime
+    from topic_post_reply
+    where post_id=#{postId}
+  </select>
+  <select id="getUserRoles" resultType="java.lang.String" parameterType="java.lang.String">
+    select
+    role
+    from user_role
+    where user_name=#{userName}
+  </select>
+  <update id="updateUserSalt" parameterType="java.lang.String">
+    update user_info
+    set salt=''
+    where user_name=#{userName}
+  </update>
+
 
 
 </mapper>
