@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 public interface ArticleMapper {
-    int countByExample(ArticleExample example);
+    long countByExample(ArticleExample example);
 
     int deleteByExample(ArticleExample example);
 

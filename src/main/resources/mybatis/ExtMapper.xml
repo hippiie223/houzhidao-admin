@@ -3,18 +3,18 @@
 <mapper namespace="com.hippie.houzhidaoadmin.mapper.ExtMapper">
     <select id="getAllTopicList" resultType="com.hippie.houzhidaoadmin.domain.TopicDTO">
     select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,start_time as startTime,end_time as endTime
     from topic
   </select>
     <select id="getTopTopicList" resultType="com.hippie.houzhidaoadmin.domain.TopicDTO">
     select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,start_time as startTime,end_time as endTime
     from topic
     order by hits desc limit 10
   </select>
     <select id="getTopicDetail" resultType="com.hippie.houzhidaoadmin.domain.TopicDTO" parameterType="java.lang.String">
     select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,start_time as startTime,end_time as endTime
     from topic
     where title=#{title} and author_name=#{authorName}
   </select>
@@ -57,29 +57,29 @@
   </update>
   <select id="getAllArticleList" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO">
     select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked,brief as brief,check_time as checkTime
     from article
   </select>
   <select id="getTopArticleList" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO">
     select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked,brief as brief,check_time as checkTime
     from article order by hits desc limit 10
   </select>
   <select id="searchArticle" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.String">
     select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked,brief as brief,check_time as checkTime
     from article
     where title like CONCAT('%',#{keyWord},'%')
   </select>
   <select id="getArticle" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.String">
      select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked,brief as brief,check_time as checkTime
     from article
     where title=#{title} and author_name=#{authorName}
   </select>
   <select id="getArticleByAuthor" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.String">
      select
-    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked,brief as brief,check_time as checkTime
     from article
     where author_name=#{authorName}
   </select>
@@ -128,6 +128,62 @@
     set salt=''
     where user_name=#{userName}
   </update>
+  <select id="getCheckedArticleList" resultType="com.hippie.houzhidaoadmin.domain.ArticleDTO" parameterType="java.lang.Integer">
+    select
+    id as id,title as title,img_url as pic,content as content,hits as viewNum,post_num as reviewNum,create_time as createTime,author_name as author,is_checked as isChecked,brief as brief,check_time as checkTime
+    from article
+    where is_checked=#{isChecked}
+  </select>
+  <update id="updatePaperQuestionTotal" parameterType="java.lang.Integer">
+    update test_paper
+    set question_total=question_total+1
+    where id=#{paperId}
+  </update>
+  <select id="getPaperList" resultType="com.hippie.houzhidaoadmin.domain.PaperDTO">
+    select
+    id as id,title as title,author as author,difficulty as difficulty,grade as grade,question_total as questionTotal,create_time as createTime,hits as viewNum
+    from test_paper
+  </select>
+  <select id="getOptionListByQuestoinId" parameterType="java.lang.Integer" resultType="com.hippie.houzhidaoadmin.domain.PaperOptionDTO">
+    select
+    id as id,option_num as optionNum,content as content
+    from test_paper_option
+    where question_id=#{id}
+  </select>
+  <select id="getPaperQuestionList" resultType="com.hippie.houzhidaoadmin.domain.PaperQuestionDTO" parameterType="java.lang.Integer">
+    select
+    id as id,question_num as questionNum,content as content,correct_option as correctOption,reply_num as replyNum,optionA_content as optionaContent,optionB_content as optionbContent,optionC_content as optioncContent,optionD_content as optiondContent
+    from test_paper_question
+    where paper_id=#{paperId}
+  </select>
+  <select id="getIdByPaperId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select
+    id
+    from test_paper_question
+    where paper_id=#{paperId}
+  </select>
+  <delete id="deleteQuestion" parameterType="java.lang.Integer">
+    delete
+    from test_paper_question
+    where paper_id=#{paperId}
+  </delete>
+  <select id="getUserList" resultType="com.hippie.houzhidaoadmin.domain.UserDTO">
+    select
+    id as id,user_name as userName,phone as phone,address as address,create_time as createTime
+    from user_info
+  </select>
+  <select id="getFirstLabel" resultType="com.hippie.houzhidaoadmin.domain.LabelDTO">
+    select
+    id as id,label_name as labelName
+    from label
+    where label_class = 1
+  </select>
+  <select id="getSecondLabel" resultType="com.hippie.houzhidaoadmin.domain.LabelDTO" parameterType="java.lang.Integer">
+    select
+    id as id,label_name as labelName
+    from label
+    where label_class = 2 and of_label_id = #{ofLabelId}
+  </select>
 
 
 

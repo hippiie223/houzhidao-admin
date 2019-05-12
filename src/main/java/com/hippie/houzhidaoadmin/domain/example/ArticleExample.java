@@ -805,53 +805,183 @@ public class ArticleExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedEqualTo(Boolean value) {
+        public Criteria andIsCheckedEqualTo(Integer value) {
             addCriterion("is_checked =", value, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedNotEqualTo(Boolean value) {
+        public Criteria andIsCheckedNotEqualTo(Integer value) {
             addCriterion("is_checked <>", value, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedGreaterThan(Boolean value) {
+        public Criteria andIsCheckedGreaterThan(Integer value) {
             addCriterion("is_checked >", value, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andIsCheckedGreaterThanOrEqualTo(Integer value) {
             addCriterion("is_checked >=", value, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedLessThan(Boolean value) {
+        public Criteria andIsCheckedLessThan(Integer value) {
             addCriterion("is_checked <", value, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedLessThanOrEqualTo(Boolean value) {
+        public Criteria andIsCheckedLessThanOrEqualTo(Integer value) {
             addCriterion("is_checked <=", value, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedIn(List<Boolean> values) {
+        public Criteria andIsCheckedIn(List<Integer> values) {
             addCriterion("is_checked in", values, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedNotIn(List<Boolean> values) {
+        public Criteria andIsCheckedNotIn(List<Integer> values) {
             addCriterion("is_checked not in", values, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedBetween(Boolean value1, Boolean value2) {
+        public Criteria andIsCheckedBetween(Integer value1, Integer value2) {
             addCriterion("is_checked between", value1, value2, "isChecked");
             return (Criteria) this;
         }
 
-        public Criteria andIsCheckedNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andIsCheckedNotBetween(Integer value1, Integer value2) {
             addCriterion("is_checked not between", value1, value2, "isChecked");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefIsNull() {
+            addCriterion("brief is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefIsNotNull() {
+            addCriterion("brief is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefEqualTo(String value) {
+            addCriterion("brief =", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefNotEqualTo(String value) {
+            addCriterion("brief <>", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefGreaterThan(String value) {
+            addCriterion("brief >", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefGreaterThanOrEqualTo(String value) {
+            addCriterion("brief >=", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefLessThan(String value) {
+            addCriterion("brief <", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefLessThanOrEqualTo(String value) {
+            addCriterion("brief <=", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefLike(String value) {
+            addCriterion("brief like", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefNotLike(String value) {
+            addCriterion("brief not like", value, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefIn(List<String> values) {
+            addCriterion("brief in", values, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefNotIn(List<String> values) {
+            addCriterion("brief not in", values, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefBetween(String value1, String value2) {
+            addCriterion("brief between", value1, value2, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andBriefNotBetween(String value1, String value2) {
+            addCriterion("brief not between", value1, value2, "brief");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIsNull() {
+            addCriterion("check_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIsNotNull() {
+            addCriterion("check_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeEqualTo(Date value) {
+            addCriterion("check_time =", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotEqualTo(Date value) {
+            addCriterion("check_time <>", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeGreaterThan(Date value) {
+            addCriterion("check_time >", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("check_time >=", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeLessThan(Date value) {
+            addCriterion("check_time <", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeLessThanOrEqualTo(Date value) {
+            addCriterion("check_time <=", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIn(List<Date> values) {
+            addCriterion("check_time in", values, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotIn(List<Date> values) {
+            addCriterion("check_time not in", values, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeBetween(Date value1, Date value2) {
+            addCriterion("check_time between", value1, value2, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotBetween(Date value1, Date value2) {
+            addCriterion("check_time not between", value1, value2, "checkTime");
             return (Criteria) this;
         }
     }

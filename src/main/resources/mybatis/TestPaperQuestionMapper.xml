@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hippie.houzhidaoadmin.mapper.TestPaperQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.hippie.houzhidaoadmin.domain.TestPaperQuestion">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="paper_id" jdbcType="INTEGER" property="paperId" />
+    <result column="correct_option" jdbcType="INTEGER" property="correctOption" />
+    <result column="reply_num" jdbcType="INTEGER" property="replyNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="question_num" jdbcType="INTEGER" property="questionNum" />
+    <result column="optionA_content" jdbcType="VARCHAR" property="optionaContent" />
+    <result column="optionB_content" jdbcType="VARCHAR" property="optionbContent" />
+    <result column="optionC_content" jdbcType="VARCHAR" property="optioncContent" />
+    <result column="optionD_content" jdbcType="VARCHAR" property="optiondContent" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hippie.houzhidaoadmin.domain.TestPaperQuestion">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, paper_id, correct_option, reply_num, create_time, update_time, question_num, 
+    optionA_content, optionB_content, optionC_content, optionD_content
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hippie.houzhidaoadmin.domain.example.TestPaperQuestionExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_paper_question
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.TestPaperQuestionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from test_paper_question
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.TestPaperQuestionExample">
+    delete from test_paper_question
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hippie.houzhidaoadmin.domain.TestPaperQuestion">
+    insert into test_paper_question (id, paper_id, correct_option, 
+      reply_num, create_time, update_time, 
+      question_num, optionA_content, optionB_content, 
+      optionC_content, optionD_content, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{paperId,jdbcType=INTEGER}, #{correctOption,jdbcType=INTEGER}, 
+      #{replyNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{questionNum,jdbcType=INTEGER}, #{optionaContent,jdbcType=VARCHAR}, #{optionbContent,jdbcType=VARCHAR}, 
+      #{optioncContent,jdbcType=VARCHAR}, #{optiondContent,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hippie.houzhidaoadmin.domain.TestPaperQuestion">
+    insert into test_paper_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="paperId != null">
+        paper_id,
+      </if>
+      <if test="correctOption != null">
+        correct_option,
+      </if>
+      <if test="replyNum != null">
+        reply_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="questionNum != null">
+        question_num,
+      </if>
+      <if test="optionaContent != null">
+        optionA_content,
+      </if>
+      <if test="optionbContent != null">
+        optionB_content,
+      </if>
+      <if test="optioncContent != null">
+        optionC_content,
+      </if>
+      <if test="optiondContent != null">
+        optionD_content,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="paperId != null">
+        #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="correctOption != null">
+        #{correctOption,jdbcType=INTEGER},
+      </if>
+      <if test="replyNum != null">
+        #{replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionNum != null">
+        #{questionNum,jdbcType=INTEGER},
+      </if>
+      <if test="optionaContent != null">
+        #{optionaContent,jdbcType=VARCHAR},
+      </if>
+      <if test="optionbContent != null">
+        #{optionbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="optioncContent != null">
+        #{optioncContent,jdbcType=VARCHAR},
+      </if>
+      <if test="optiondContent != null">
+        #{optiondContent,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.TestPaperQuestionExample" resultType="java.lang.Long">
+    select count(*) from test_paper_question
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update test_paper_question
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperId != null">
+        paper_id = #{record.paperId,jdbcType=INTEGER},
+      </if>
+      <if test="record.correctOption != null">
+        correct_option = #{record.correctOption,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyNum != null">
+        reply_num = #{record.replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.questionNum != null">
+        question_num = #{record.questionNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.optionaContent != null">
+        optionA_content = #{record.optionaContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optionbContent != null">
+        optionB_content = #{record.optionbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optioncContent != null">
+        optionC_content = #{record.optioncContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optiondContent != null">
+        optionD_content = #{record.optiondContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update test_paper_question
+    set id = #{record.id,jdbcType=INTEGER},
+      paper_id = #{record.paperId,jdbcType=INTEGER},
+      correct_option = #{record.correctOption,jdbcType=INTEGER},
+      reply_num = #{record.replyNum,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      question_num = #{record.questionNum,jdbcType=INTEGER},
+      optionA_content = #{record.optionaContent,jdbcType=VARCHAR},
+      optionB_content = #{record.optionbContent,jdbcType=VARCHAR},
+      optionC_content = #{record.optioncContent,jdbcType=VARCHAR},
+      optionD_content = #{record.optiondContent,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update test_paper_question
+    set id = #{record.id,jdbcType=INTEGER},
+      paper_id = #{record.paperId,jdbcType=INTEGER},
+      correct_option = #{record.correctOption,jdbcType=INTEGER},
+      reply_num = #{record.replyNum,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      question_num = #{record.questionNum,jdbcType=INTEGER},
+      optionA_content = #{record.optionaContent,jdbcType=VARCHAR},
+      optionB_content = #{record.optionbContent,jdbcType=VARCHAR},
+      optionC_content = #{record.optioncContent,jdbcType=VARCHAR},
+      optionD_content = #{record.optiondContent,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.hippie.houzhidaoadmin.domain.example.TestPaperQuestionExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_paper_question
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.hippie.houzhidaoadmin.domain.example.TestPaperQuestionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from test_paper_question
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

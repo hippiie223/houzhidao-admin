@@ -1,42 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hippie.houzhidaoadmin.mapper.ArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.hippie.houzhidaoadmin.domain.Article" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="article_sort_id" property="articleSortId" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="author_name" property="authorName" jdbcType="VARCHAR" />
-    <result column="hits" property="hits" jdbcType="INTEGER" />
-    <result column="recommend_num" property="recommendNum" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="last_post_time" property="lastPostTime" jdbcType="TIMESTAMP" />
-    <result column="post_num" property="postNum" jdbcType="INTEGER" />
-    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
-    <result column="is_checked" property="isChecked" jdbcType="BIT" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hippie.houzhidaoadmin.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.hippie.houzhidaoadmin.domain.Article">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="article_sort_id" jdbcType="INTEGER" property="articleSortId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="recommend_num" jdbcType="INTEGER" property="recommendNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="last_post_time" jdbcType="TIMESTAMP" property="lastPostTime" />
+    <result column="post_num" jdbcType="INTEGER" property="postNum" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="is_checked" jdbcType="INTEGER" property="isChecked" />
+    <result column="brief" jdbcType="VARCHAR" property="brief" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.hippie.houzhidaoadmin.domain.Article" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hippie.houzhidaoadmin.domain.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -47,25 +49,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -76,16 +78,16 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, article_sort_id, title, author_name, hits, recommend_num, create_time, update_time, 
-    last_post_time, post_num, img_url, is_checked
+    last_post_time, post_num, img_url, is_checked, brief, check_time
   </sql>
-  <sql id="Blob_Column_List" >
+  <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" >
+  <select id="selectByExampleWithBLOBs" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" resultMap="ResultMapWithBLOBs">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
@@ -93,185 +95,205 @@
     ,
     <include refid="Blob_Column_List" />
     from article
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" >
+  <select id="selectByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
     from article
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" >
+  <delete id="deleteByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample">
     delete from article
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hippie.houzhidaoadmin.domain.Article" >
+  <insert id="insert" parameterType="com.hippie.houzhidaoadmin.domain.Article">
     insert into article (id, article_sort_id, title, 
       author_name, hits, recommend_num, 
       create_time, update_time, last_post_time, 
       post_num, img_url, is_checked, 
-      content)
+      brief, check_time, content
+      )
     values (#{id,jdbcType=INTEGER}, #{articleSortId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{authorName,jdbcType=VARCHAR}, #{hits,jdbcType=INTEGER}, #{recommendNum,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{lastPostTime,jdbcType=TIMESTAMP}, 
-      #{postNum,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, #{isChecked,jdbcType=BIT}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{postNum,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, #{isChecked,jdbcType=INTEGER}, 
+      #{brief,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.hippie.houzhidaoadmin.domain.Article" >
+  <insert id="insertSelective" parameterType="com.hippie.houzhidaoadmin.domain.Article">
     insert into article
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="articleSortId != null" >
+      <if test="articleSortId != null">
         article_sort_id,
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         title,
       </if>
-      <if test="authorName != null" >
+      <if test="authorName != null">
         author_name,
       </if>
-      <if test="hits != null" >
+      <if test="hits != null">
         hits,
       </if>
-      <if test="recommendNum != null" >
+      <if test="recommendNum != null">
         recommend_num,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time,
       </if>
-      <if test="lastPostTime != null" >
+      <if test="lastPostTime != null">
         last_post_time,
       </if>
-      <if test="postNum != null" >
+      <if test="postNum != null">
         post_num,
       </if>
-      <if test="imgUrl != null" >
+      <if test="imgUrl != null">
         img_url,
       </if>
-      <if test="isChecked != null" >
+      <if test="isChecked != null">
         is_checked,
       </if>
-      <if test="content != null" >
+      <if test="brief != null">
+        brief,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="content != null">
         content,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="articleSortId != null" >
+      <if test="articleSortId != null">
         #{articleSortId,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="authorName != null" >
+      <if test="authorName != null">
         #{authorName,jdbcType=VARCHAR},
       </if>
-      <if test="hits != null" >
+      <if test="hits != null">
         #{hits,jdbcType=INTEGER},
       </if>
-      <if test="recommendNum != null" >
+      <if test="recommendNum != null">
         #{recommendNum,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastPostTime != null" >
+      <if test="lastPostTime != null">
         #{lastPostTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="postNum != null" >
+      <if test="postNum != null">
         #{postNum,jdbcType=INTEGER},
       </if>
-      <if test="imgUrl != null" >
+      <if test="imgUrl != null">
         #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="isChecked != null" >
-        #{isChecked,jdbcType=BIT},
+      <if test="isChecked != null">
+        #{isChecked,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
+      <if test="brief != null">
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" resultType="java.lang.Long">
     select count(*) from article
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update article
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.articleSortId != null" >
+      <if test="record.articleSortId != null">
         article_sort_id = #{record.articleSortId,jdbcType=INTEGER},
       </if>
-      <if test="record.title != null" >
+      <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorName != null" >
+      <if test="record.authorName != null">
         author_name = #{record.authorName,jdbcType=VARCHAR},
       </if>
-      <if test="record.hits != null" >
+      <if test="record.hits != null">
         hits = #{record.hits,jdbcType=INTEGER},
       </if>
-      <if test="record.recommendNum != null" >
+      <if test="record.recommendNum != null">
         recommend_num = #{record.recommendNum,jdbcType=INTEGER},
       </if>
-      <if test="record.createTime != null" >
+      <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateTime != null" >
+      <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.lastPostTime != null" >
+      <if test="record.lastPostTime != null">
         last_post_time = #{record.lastPostTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.postNum != null" >
+      <if test="record.postNum != null">
         post_num = #{record.postNum,jdbcType=INTEGER},
       </if>
-      <if test="record.imgUrl != null" >
+      <if test="record.imgUrl != null">
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.isChecked != null" >
-        is_checked = #{record.isChecked,jdbcType=BIT},
+      <if test="record.isChecked != null">
+        is_checked = #{record.isChecked,jdbcType=INTEGER},
       </if>
-      <if test="record.content != null" >
+      <if test="record.brief != null">
+        brief = #{record.brief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null">
+        check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
+  <update id="updateByExampleWithBLOBs" parameterType="map">
     update article
     set id = #{record.id,jdbcType=INTEGER},
       article_sort_id = #{record.articleSortId,jdbcType=INTEGER},
@@ -284,13 +306,15 @@
       last_post_time = #{record.lastPostTime,jdbcType=TIMESTAMP},
       post_num = #{record.postNum,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
-      is_checked = #{record.isChecked,jdbcType=BIT},
+      is_checked = #{record.isChecked,jdbcType=INTEGER},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update article
     set id = #{record.id,jdbcType=INTEGER},
       article_sort_id = #{record.articleSortId,jdbcType=INTEGER},
@@ -303,14 +327,16 @@
       last_post_time = #{record.lastPostTime,jdbcType=TIMESTAMP},
       post_num = #{record.postNum,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
-      is_checked = #{record.isChecked,jdbcType=BIT}
-    <if test="_parameter != null" >
+      is_checked = #{record.isChecked,jdbcType=INTEGER},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <select resultMap="ResultMapWithBLOBs" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" id="selectByExampleWithBLOBsWithRowbounds" >
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" resultMap="ResultMapWithBLOBs">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
@@ -318,25 +344,25 @@
     ,
     <include refid="Blob_Column_List" />
     from article
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select resultMap="BaseResultMap" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" id="selectByExampleWithRowbounds" >
+  <select id="selectByExampleWithRowbounds" parameterType="com.hippie.houzhidaoadmin.domain.example.ArticleExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
     from article
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>

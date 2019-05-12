@@ -24,14 +24,34 @@ public class ArticleRespBody {
 
     private String createTime;
 
-    private Boolean isChecked;
+    private Integer isChecked;
 
-    public Boolean getIsChecked() {
+    private String brief;
+
+    private String checkTime;
+
+    public String getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(String checkTime) {
+        this.checkTime = checkTime;
+    }
+
+    public Integer getIsChecked() {
         return isChecked;
     }
 
-    public void setIsChecked(Boolean checked) {
-        isChecked = checked;
+    public void setIsChecked(Integer isChecked) {
+        this.isChecked = isChecked;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
     }
 
     public Integer getId() {

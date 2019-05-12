@@ -1,17 +1,21 @@
 package com.hippie.houzhidaoadmin.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.hippie.houzhidaoadmin.domain.UserInfo;
 import com.hippie.houzhidaoadmin.domain.example.UserInfoExample;
 import com.hippie.houzhidaoadmin.mapper.ExtMapper;
 import com.hippie.houzhidaoadmin.mapper.UserInfoMapper;
 import com.hippie.houzhidaoadmin.mapper.UserRoleMapper;
+import com.hippie.houzhidaoadmin.respbody.UserRespBody;
 import com.hippie.houzhidaoadmin.service.UserService;
 import com.hippie.houzhidaoadmin.util.JwtUtils;
 import com.hippie.houzhidaoadmin.util.MathUtil;
+import com.hippie.houzhidaoadmin.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 39239
@@ -66,5 +70,20 @@ public class UserServiceImpl implements UserService {
 //        userInfo.setSalt("");
 //        userInfoMapper.updateByExampleSelective(userInfo, example);
         extMapper.updateUserSalt(userName);
+    }
+
+    @Override
+    public List<UserRespBody> getUserList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        return extMapper.getUserList().parallelStream().map(userDTO -> {
+            UserRespBody respBody = new UserRespBody();
+            respBody.setId(userDTO.getId());
+            respBody.setName(userDTO.getUserName());
+            respBody.setAddress(userDTO.getAddress());
+            respBody.setPhone(userDTO.getPhone());
+            respBody.setCreateTime(TimeUtil.getTime(userDTO.getCreateTime()));
+            return respBody;
+        }).collect(Collectors.toList());
     }
 }

@@ -20,4 +20,5 @@ public interface ArticleService {
     Boolean deleteArticlePostReply(Integer replyId);
     List<ArticlePostRespBody> getArtcilePostList(Integer articleId , int pageNum, int pageSize);
     List<ArticlePostReplyRespBody> getArticlePostReplyList(Integer postId, int pageNum, int pageSize);
+    List<ArticleRespBody> getCheckedList(int isChecked, int pageNum, int pageSize);
 }

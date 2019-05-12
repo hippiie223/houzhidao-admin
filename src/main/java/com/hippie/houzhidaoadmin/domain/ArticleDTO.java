@@ -26,14 +26,34 @@ public class ArticleDTO {
 
     private Date createTime;
 
-    private Boolean isChecked;
+    private Integer isChecked;
 
-    public Boolean getIsChecked() {
+    private String brief;
+
+    private Date checkTime;
+
+    public Date getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public Integer getIsChecked() {
         return isChecked;
     }
 
-    public void setIsChecked(Boolean checked) {
-        isChecked = checked;
+    public void setIsChecked(Integer isChecked) {
+        this.isChecked = isChecked;
     }
 
     public Integer getId() {

@@ -25,7 +25,11 @@ public class Article {
 
     private String imgUrl;
 
-    private Boolean isChecked;
+    private Integer isChecked;
+
+    private String brief;
+
+    private Date checkTime;
 
     private String content;
 
@@ -117,12 +121,28 @@ public class Article {
         this.imgUrl = imgUrl;
     }
 
-    public Boolean getIsChecked() {
+    public Integer getIsChecked() {
         return isChecked;
     }
 
-    public void setIsChecked(Boolean isChecked) {
+    public void setIsChecked(Integer isChecked) {
         this.isChecked = isChecked;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public Date getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
     }
 
     public String getContent() {

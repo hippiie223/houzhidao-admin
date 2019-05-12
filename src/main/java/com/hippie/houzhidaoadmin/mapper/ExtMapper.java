@@ -2,6 +2,7 @@ package com.hippie.houzhidaoadmin.mapper;
 
 import com.hippie.houzhidaoadmin.domain.*;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -48,4 +49,24 @@ public interface ExtMapper {
     List<String> getUserRoles(@Param("userName") String userName);
 
     int updateUserSalt(@Param("userName") String userName);
+
+    List<ArticleDTO> getCheckedArticleList(@Param("isChecked") Integer isChecked);
+
+    int updatePaperQuestionTotal(@Param("paperId") Integer paperId);
+
+    List<PaperDTO> getPaperList();
+
+    List<PaperOptionDTO> getOptionListByQuestoinId(@Param("id") Integer id);
+
+    List<PaperQuestionDTO> getPaperQuestionList(@Param("paperId") Integer paperId);
+
+    List<Integer> getIdByPaperId(@Param("paperId")Integer paperId);
+
+    int deleteQuestion(@Param("paperId") Integer paperId);
+
+    List<UserDTO> getUserList();
+
+    List<LabelDTO> getFirstLabel();
+
+    List<LabelDTO> getSecondLabel(@Param("ofLabelId") Integer ofLabelId);
 }

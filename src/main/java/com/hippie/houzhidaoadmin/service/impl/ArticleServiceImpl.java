@@ -2,8 +2,6 @@ package com.hippie.houzhidaoadmin.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.hippie.houzhidaoadmin.domain.Article;
-import com.hippie.houzhidaoadmin.domain.ArticlePostReply;
-import com.hippie.houzhidaoadmin.domain.ArticlePostReplyDTO;
 import com.hippie.houzhidaoadmin.domain.example.ArticleExample;
 import com.hippie.houzhidaoadmin.domain.example.ArticlePostExample;
 import com.hippie.houzhidaoadmin.domain.example.ArticlePostReplyExample;
@@ -52,6 +50,10 @@ public class ArticleServiceImpl implements ArticleService {
             articleRespBody.setReviewNum(articleDTO.getReviewNum());
             articleRespBody.setViewNum(articleDTO.getViewNum());
             articleRespBody.setIsChecked(articleDTO.getIsChecked());
+            articleRespBody.setBrief(articleDTO.getBrief());
+            if(articleDTO.getCheckTime() != null){
+                articleRespBody.setCheckTime(TimeUtil.getTime(articleDTO.getCheckTime()));
+            }
             articleRespBody.setCreateTime(TimeUtil.getTime(articleDTO.getCreateTime()));
             return articleRespBody;
         }).collect(Collectors.toList());
@@ -60,7 +62,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Boolean check(Integer articleId) {
-        return extMapper.updateArticleIsChecked(articleId) == 1;
+        ArticleExample articleExample = new ArticleExample();
+        articleExample.createCriteria().andIdEqualTo(articleId);
+        Article article = new Article();
+        article.setIsChecked(1);
+        article.setCheckTime(TimeUtil.getCurrentTime());
+        return articleMapper.updateByExampleSelective(article, articleExample) == 1;
     }
 
     @Override
@@ -112,6 +119,29 @@ public class ArticleServiceImpl implements ArticleService {
             articlePostReplyRespBody.setReplyTo(articlePostReplyDTO.getReplyTo());
             articlePostReplyRespBody.setCreateTime(TimeUtil.getTime(articlePostReplyDTO.getCreateTime()));
             return articlePostReplyRespBody;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleRespBody> getCheckedList(int isChecked, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        return extMapper.getCheckedArticleList(isChecked).parallelStream().map(articleDTO -> {
+            ArticleRespBody articleRespBody = new ArticleRespBody();
+            articleRespBody.setId(articleDTO.getId());
+            articleRespBody.setTitle(articleDTO.getTitle());
+            articleRespBody.setAuthor(articleDTO.getAuthor());
+            articleRespBody.setContent(articleDTO.getContent());
+            articleRespBody.setPic(articleDTO.getPic());
+            articleRespBody.setReviewNum(articleDTO.getReviewNum());
+            articleRespBody.setViewNum(articleDTO.getViewNum());
+            articleRespBody.setIsChecked(articleDTO.getIsChecked());
+            articleRespBody.setBrief(articleDTO.getBrief());
+            if(articleDTO.getCheckTime() != null){
+                articleRespBody.setCheckTime(TimeUtil.getTime(articleDTO.getCheckTime()));
+            }
+            articleRespBody.setCreateTime(TimeUtil.getTime(articleDTO.getCreateTime()));
+            return articleRespBody;
         }).collect(Collectors.toList());
     }
 }

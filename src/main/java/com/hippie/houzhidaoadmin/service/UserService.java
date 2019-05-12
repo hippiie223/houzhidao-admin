@@ -1,6 +1,7 @@
 package com.hippie.houzhidaoadmin.service;
 
 import com.hippie.houzhidaoadmin.domain.UserInfo;
+import com.hippie.houzhidaoadmin.respbody.UserRespBody;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface UserService {
     String generateJwtToken(String userName);
     UserInfo getJwtTokenInfo(String userName);
     void deleteLoginInfo(String userName);
+    List<UserRespBody> getUserList(int pageNum, int pageSize);
 }

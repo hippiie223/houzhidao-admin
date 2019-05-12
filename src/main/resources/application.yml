@@ -11,7 +11,7 @@ spring:
       password: WANGbowen0223!
       driver-class-name: com.mysql.jdbc.Driver
       hikari:
-        maxLifetime: 1800000
+        maxLifetime: 180000
         maximumPoolSize: 15
 
 

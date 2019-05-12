@@ -19,4 +19,10 @@ public class TimeUtil {
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         return simpleDateFormat.format(date);
     }
+
+    public static Timestamp getTimestamp(String time){
+        return Timestamp.valueOf(time);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.hippie.houzhidaoadmin.controller;
 
+import com.hippie.houzhidaoadmin.request.CheckRequestBody;
 import com.hippie.houzhidaoadmin.respbody.ArticlePostReplyRespBody;
 import com.hippie.houzhidaoadmin.respbody.ArticlePostRespBody;
 import com.hippie.houzhidaoadmin.respbody.ArticleRespBody;
@@ -26,7 +27,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping(path = "/get/all/list")
+    @GetMapping(path = "/list")
     @ApiOperation("所有文章列表")
     public RootRespBody<List<ArticleRespBody>> getAllArticleList(@RequestParam int pageNum, @RequestParam int pageSize){
         return RootRespBody.success(articleService.getAllList(pageNum, pageSize));
@@ -34,8 +35,8 @@ public class ArticleController {
 
     @PostMapping(path = "/check")
     @ApiOperation("文章审核")
-    public RootRespBody<Boolean> check(@RequestParam int articleId){
-        return RootRespBody.success(articleService.check(articleId));
+    public RootRespBody<Boolean> check(@RequestBody CheckRequestBody requestBody){
+        return RootRespBody.success(articleService.check(requestBody.getArticleId()));
     }
 
     @DeleteMapping(path = "/delete/post")
@@ -62,4 +63,11 @@ public class ArticleController {
     public RootRespBody<List<ArticlePostReplyRespBody>> getArticlePostReplyList(@RequestParam int postId, @RequestParam int pageNum, @RequestParam int pageSize){
         return RootRespBody.success(articleService.getArticlePostReplyList(postId, pageNum, pageSize));
     }
+
+    @GetMapping(path = "/list/isChecked")
+    @ApiOperation("获取审核列表")
+    public RootRespBody<List<ArticleRespBody>> getCheckedList(@RequestParam Integer isChecked, @RequestParam int pageNum, @RequestParam int pageSize){
+        return RootRespBody.success(articleService.getCheckedList(isChecked, pageNum, pageSize));
+    }
+
 }
